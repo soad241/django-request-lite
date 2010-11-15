@@ -39,7 +39,7 @@ class Request(models.Model):
     
     def from_http_request(self, request, response=None, commit=True):
         # Request infomation
-        self.method = request.method
+        self.method = request.method[:7]
         self.path = request.path
         
         self.is_secure = request.is_secure()
