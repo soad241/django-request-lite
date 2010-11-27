@@ -15,7 +15,7 @@ from request.traffic import modules
 from request.plugins import *
 
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ('time', 'path', 'data', 'response', 'method', 'request_from')
+    list_display = ('time', 'path', 'short_data', 'response', 'method', 'request_from')
     fieldsets = (
         (_('Request'), {
             'fields': ('method', 'path', 'data', 'time', 
@@ -30,6 +30,8 @@ class RequestAdmin(admin.ModelAdmin):
     )
     raw_id_fields = ('user',) 
     
+    def short_data(self, obj):
+        return obj.data[:50]
     def request_from(self, obj):
         if obj.user:
             return '<a href="?user__username=%s" title="%s">%s</a>' % (obj.user.username, _('Show only requests from this user.'), obj.user)
