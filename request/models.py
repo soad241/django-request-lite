@@ -15,6 +15,7 @@ class Request(models.Model):
     # Request infomation
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
+    data = models.CharField(_('data'), max_length=255, null=True, blank=True)
     time = models.DateTimeField(_('time'), default=datetime.now)
     
     is_secure = models.BooleanField(_('is secure'), default=False)
@@ -44,7 +45,10 @@ class Request(models.Model):
         
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
-        
+        if request.method == 'GET':
+            self.data = request.GET.urlencode()[:255]
+        else:
+            self.data = request.POST.urlencode()[:255]
         # User infomation
         self.ip = request.META.get('REMOTE_ADDR', '')
         self.referer = request.META.get('HTTP_REFERER', '')[:255]
