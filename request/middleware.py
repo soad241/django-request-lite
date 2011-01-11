@@ -25,6 +25,9 @@ class RequestMiddleware(object):
             if request.user.username in settings.REQUEST_IGNORE_USERNAME:
                 return response
         
+        if not getattr(request, 'session', None):
+            return response
+
         r = Request()
         now = datetime.datetime.now()
         path = request.path
