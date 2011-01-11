@@ -28,7 +28,7 @@ class RequestMiddleware(object):
         r = Request()
         now = datetime.datetime.now()
 
-        if not getattr(request, 'session'):
+        if not getattr(request, 'session', None):
             return response
 
         try:
