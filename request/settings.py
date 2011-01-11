@@ -3,6 +3,8 @@ import datetime
 from django.conf import settings
 from django.contrib.sites.models import Site
 
+REQUEST_ALWAYS_INSERT_FROM_URLS = getattr(settings, 
+                            'REQUEST_ALWAYS_INSERT_FROM_URLS', [])
 REQUEST_ONLY_ERRORS = getattr(settings, 'REQUEST_ONLY_ERRORS', False)
 REQUEST_IGNORE_AJAX = getattr(settings, 'REQUEST_IGNORE_AJAX', False)
 REQUEST_IGNORE_IP = getattr(settings, 'REQUEST_IGNORE_IP', tuple())

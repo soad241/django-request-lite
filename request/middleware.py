@@ -27,8 +27,16 @@ class RequestMiddleware(object):
         
         r = Request()
         now = datetime.datetime.now()
-
-        if not getattr(request, 'session', None):
+        path = request.path
+        if path[len(path)-1] != '/':
+            path = path + '/'
+    
+        if path in settings.REQUEST_ALWAYS_INSERT_FROM_URLS:
+            try:
+                request.session['last_request_log'] = now
+            except:
+                pass
+            r.from_http_request(request, response)        
             return response
 
         try:
