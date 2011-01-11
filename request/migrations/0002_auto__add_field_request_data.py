@@ -7,15 +7,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+        pass
         # Adding field 'Request.data'
-        db.add_column('request_request', 'data', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True), keep_default=False)
+        #db.add_column('request_request', 'data', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True), keep_default=False)
 
 
     def backwards(self, orm):
-        
+        pass
         # Deleting field 'Request.data'
-        db.delete_column('request_request', 'data')
+        #db.delete_column('request_request', 'data')
 
 
     models = {

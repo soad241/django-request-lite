@@ -9,27 +9,28 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding model 'Request'
-        db.create_table('request_request', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('response', self.gf('django.db.models.fields.SmallIntegerField')(default=200)),
-            ('method', self.gf('django.db.models.fields.CharField')(default='GET', max_length=7)),
-            ('path', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('time', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_secure', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_ajax', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('ip', self.gf('django.db.models.fields.IPAddressField')(max_length=15)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
-            ('referer', self.gf('django.db.models.fields.URLField')(max_length=255, null=True, blank=True)),
-            ('user_agent', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('language', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-        ))
-        db.send_create_signal('request', ['Request'])
+        # db.create_table('request_request', (
+        #     ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+        #     ('response', self.gf('django.db.models.fields.SmallIntegerField')(default=200)),
+        #     ('method', self.gf('django.db.models.fields.CharField')(default='GET', max_length=7)),
+        #     ('path', self.gf('django.db.models.fields.CharField')(max_length=255)),
+        #     ('time', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
+        #     ('is_secure', self.gf('django.db.models.fields.BooleanField')(default=False)),
+        #     ('is_ajax', self.gf('django.db.models.fields.BooleanField')(default=False)),
+        #     ('ip', self.gf('django.db.models.fields.IPAddressField')(max_length=15)),
+        #     ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
+        #     ('referer', self.gf('django.db.models.fields.URLField')(max_length=255, null=True, blank=True)),
+        #     ('user_agent', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+        #     ('language', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+        # ))
+        # db.send_create_signal('request', ['Request'])
+        pass
 
 
     def backwards(self, orm):
-        
+        pass
         # Deleting model 'Request'
-        db.delete_table('request_request')
+        #db.delete_table('request_request')
 
 
     models = {

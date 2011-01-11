@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.urlresolvers import get_callable
 
 from request.models import Request
@@ -24,6 +26,15 @@ class RequestMiddleware(object):
                 return response
         
         r = Request()
-        r.from_http_request(request, response)
-        
+        now = datetime.datetime.now()
+        try:
+            last_log = request.session['last_request_log']
+            last_log_limit = last_log + \
+                settings.REQUEST_USER_TRACKING_LOGAGAIN_DELAY
+            if now < last_log_limit :
+                return response
+        except KeyError:
+            pass 
+        request.session['last_request_log'] = now
+        r.from_http_request(request, response)        
         return response
