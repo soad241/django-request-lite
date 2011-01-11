@@ -27,6 +27,10 @@ class RequestMiddleware(object):
         
         r = Request()
         now = datetime.datetime.now()
+
+        if not getattr(request, 'session'):
+            return response
+
         try:
             last_log = request.session['last_request_log']
             last_log_limit = last_log + \
