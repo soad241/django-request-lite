@@ -29,7 +29,8 @@ class RequestAdmin(admin.ModelAdmin):
         })
     )
     raw_id_fields = ('user',) 
-    
+    list_filter = ('user',)
+
     def short_data(self, obj):
         return obj.data[:50]
     def request_from(self, obj):
