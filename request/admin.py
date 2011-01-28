@@ -29,7 +29,10 @@ class RequestAdmin(admin.ModelAdmin):
         })
     )
     raw_id_fields = ('user',) 
-    list_filter = ('user',)
+    
+    def lookup_allowed(self, lookup):
+        return True
+
 
     def short_data(self, obj):
         return obj.data[:50]
