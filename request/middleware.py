@@ -44,10 +44,11 @@ class RequestMiddleware(object):
 
         try:
             last_log = request.session['last_request_log']
-            last_log_limit = last_log + \
-                settings.REQUEST_USER_TRACKING_LOGAGAIN_DELAY
-            if now < last_log_limit :
-                return response
+            if settings.REQUEST_USER_TRACKING_LOGAGAIN_DELAY:
+                last_log_limit = last_log + \
+                    settings.REQUEST_USER_TRACKING_LOGAGAIN_DELAY
+                if now < last_log_limit :
+                    return response
         except KeyError:
             pass 
         request.session['last_request_log'] = now
