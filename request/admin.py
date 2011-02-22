@@ -30,7 +30,7 @@ class RequestAdmin(admin.ModelAdmin):
     )
     raw_id_fields = ('user',) 
     
-    def lookup_allowed(self, lookup):
+    def lookup_allowed(self, lookup, value):
         return True
 
 
