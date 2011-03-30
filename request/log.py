@@ -29,10 +29,14 @@ def save_hits():
                         exchange='request', 
                         routing_key='request.*', exchange_type='topic')
     count = 0
+    messages = []
     for message in consumer.iterqueue():
+        messages.append(message)
         request = message.decode()
         request.save()
         count += 1
     logger.info("Saved {0} requests".format(count))
+    [m.ack() for m in messages]
+    logger.debug("Acknowledged all messages")
     consumer.close()
     conn.close()
