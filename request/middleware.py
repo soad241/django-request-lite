@@ -5,6 +5,7 @@ from django.core.urlresolvers import get_callable
 from request.models import Request
 from request import settings
 from request.router import patterns
+from request.log import record_request
 
 class RequestMiddleware(object):
     def process_response(self, request, response):
@@ -39,7 +40,8 @@ class RequestMiddleware(object):
                 request.session['last_request_log'] = now
             except:
                 pass
-            r.from_http_request(request, response)        
+            r.from_http_request(request, response, commit=False)
+            record_request(r)
             return response
 
         try:
@@ -52,5 +54,6 @@ class RequestMiddleware(object):
         except KeyError:
             pass 
         request.session['last_request_log'] = now
-        r.from_http_request(request, response)        
+        r.from_http_request(request, response, commit=False)
+        record_request(r)
         return response
