@@ -33,6 +33,11 @@ def save_hits():
     for message in consumer.iterqueue():
         messages.append(message)
         request = message.decode()
+        request.path = request.path[:255]
+        request.data = request.data[:255]
+        request.referer = request.referer[:255]
+        request.user_agent = request.user_agent[:255]
+        request.language = request.language[:255]
         request.save()
         count += 1
     logger.info("Saved {0} requests".format(count))
