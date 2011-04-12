@@ -3,6 +3,7 @@ import logging
 from carrot.connection import DjangoAMQPConnection
 from carrot.messaging import Publisher, Consumer
 from django.db import transaction
+from gattlib.string_tools import convert_unicode_to_string
 
 import models
 
@@ -33,11 +34,12 @@ def save_hits():
     for message in consumer.iterqueue():
         messages.append(message)
         request = message.decode()
-        request.path = request.path[:255]
-        request.data = request.data[:255]
-        request.referer = request.referer[:255]
-        request.user_agent = request.user_agent[:255]
-        request.language = request.language[:255]
+        request.path = convert_unicode_to_string(request.path[:255])
+        request.data = convert_unicode_to_string(request.data[:255])
+        request.referer = convert_unicode_to_string(request.referer[:255])
+        request.user_agent =\
+               convert_unicode_to_string(request.user_agent[:255])
+        request.language = convert_unicode_to_string(request.language[:255])
         request.save()
         count += 1
     logger.info("Saved {0} requests".format(count))
